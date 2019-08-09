@@ -17,8 +17,8 @@ node{
         nexusArtifactUploader artifacts: [
         [artifactId: 'vprofile', 
         classifier: '', 
-        file: 'vprofile-v1.jar', 
-        type: 'jar']], 
+        file: 'workspace/pipeline_git_mvn/target/vprofile-v1.war', 
+        type: 'war']], 
         credentialsId: 'nexus-credentials', 
         groupId: 'com.visualpathit', 
         nexusUrl: '13.235.100.21:8081', 
