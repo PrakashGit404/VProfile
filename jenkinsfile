@@ -1,0 +1,9 @@
+node{
+  stage('clone'){
+    git 'https://github.com/PrakashGit404/VProfile'
+  }
+  stage('compile-pack'){
+    def mvnHome = tool name: 'mvn', type: 'maven'
+    sh "${mvnHome}/bin/mvn clean compile package"
+  }
+}
