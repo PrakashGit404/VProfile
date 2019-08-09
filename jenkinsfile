@@ -6,4 +6,11 @@ node{
     def mvnHome = tool name: 'mvn', type: 'maven'
     sh "${mvnHome}/bin/mvn clean compile package"
   }
+  stage('sonar qube'){
+    def mvnHome = tool name: 'mvn', type: 'maven'
+      withSonarQubeEnv('sonar server'){
+      sh "${mvnHome}/bin/mvn sonar:sonar"
+            
+    }
+  }
 }
