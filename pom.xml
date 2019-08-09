@@ -158,14 +158,14 @@
     </build>
   <distributionManagement>
         <repository>
-            <id>nexus</id>
+            <id>deployment</id>
             <name>Internal Releases</name>
-            <url>http://13.232.97.203:8081/repository/vp-release/</url>
+            <url>http://13.234.37.129:8081/repository/vp-release/</url>
         </repository>
         <snapshotRepository>
-            <id>nexus</id>
+            <id>deployment</id>
             <name>Internal Snapshot Releases</name>
-            <url>http://13.232.97.203:8081/repository/vp-snap/</url>
+            <url>http://13.234.37.129:8081/repository/vp-snap/</url>
         </snapshotRepository>
     </distributionManagement>
 </project>
