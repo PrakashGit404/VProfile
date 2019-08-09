@@ -13,22 +13,18 @@ node{
     }
   }
   stage('Nexus') {
-        steps {
-            script {
-                def pom = readMavenPom file: 'pom.xml'
-                nexusArtifactUploader artifacts: [
-                [artifactId: 'vprofile', 
-                classifier: '', 
-                file: 'vprofile-v1.war', 
-                type: 'war']], 
-                credentialsId: 'nexus-credentials', 
-                groupId: 'com.visualpathit', 
-                nexusUrl: '13.235.100.21:8081', 
-                nexusVersion: 'nexus2', 
-                protocol: 'http', 
-                repository: 'maven-releases', 
-                version: 'v1'
-            }
-        }
+        def pom = readMavenPom file: 'pom.xml'
+        nexusArtifactUploader artifacts: [
+        [artifactId: 'vprofile', 
+        classifier: '', 
+        file: 'vprofile-v1.war', 
+        type: 'war']], 
+        credentialsId: 'nexus-credentials', 
+        groupId: 'com.visualpathit', 
+        nexusUrl: '13.235.100.21:8081', 
+        nexusVersion: 'nexus2', 
+        protocol: 'http', 
+        repository: 'maven-releases', 
+        version: 'v1'
     }
 }
