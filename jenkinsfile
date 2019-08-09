@@ -17,8 +17,8 @@ node{
         nexusArtifactUploader artifacts: [
         [artifactId: 'vprofile', 
         classifier: '', 
-        file: 'vprofile-v1.war', 
-        type: 'war']], 
+        file: 'vprofile-v1.jar', 
+        type: 'jar']], 
         credentialsId: 'nexus-credentials', 
         groupId: 'com.visualpathit', 
         nexusUrl: '13.235.100.21:8081', 
