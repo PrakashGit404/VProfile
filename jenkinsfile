@@ -26,7 +26,7 @@ node{
         [artifactId: 'vprofile', 
         classifier: '', 
         file: '/var/lib/jenkins/plugins/nexus-artifact-uploader.jpi', 
-        type: 'jpi']], 
+        type: 'jar']], 
         credentialsId: 'nexus-credentials', 
         groupId: 'com.visualpathit', 
         nexusUrl: '13.234.225.84:8081', 
