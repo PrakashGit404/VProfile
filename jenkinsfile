@@ -28,17 +28,29 @@ node{
         artifactExists = fileExists artifactPath;
         if(artifactExists) {
                  echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
-        nexusArtifactUploader artifacts: [
-        [artifactId: 'vprofile', 
-        classifier: '', 
-        file: '/var/lib/jenkins/plugins/nexus-artifact-uploader.jpi', 
-        type: 'jar']], 
-        credentialsId: 'nexus-credentials', 
-        groupId: pom.groupId,
-        version: pom.version,
-        nexusUrl: '13.234.225.84:8081', 
-        nexusVersion: 'nexus2', 
-        protocol: 'http', 
-        repository: 'maven-releases', 
+        nexusArtifactUploader(
+                            nexusVersion: 'nexus2',
+                            protocol: 'http',
+                            nexusUrl: '13.234.225.84:8081',
+                            groupId: pom.groupId,
+                            version: pom.version,
+                            repository: 'maven-releases', 
+                            credentialsId: 'nexus-credentials',
+                            artifacts: [
+                                // Artifact generated such as .jar, .ear and .war files.
+                                [artifactId: pom.artifactId,
+                                classifier: '',
+                                file: artifactPath,
+                                type: pom.packaging],
+                                // Lets upload the pom.xml file for additional information for Transitive dependencies
+                                [artifactId: pom.artifactId,
+                                classifier: '',
+                                file: "pom.xml",
+                                type: "pom"]
+                            ]
+                        );
+                    } else {
+                        error "*** File: ${artifactPath}, could not be found";
+                    }
     }
 }
