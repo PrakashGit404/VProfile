@@ -22,17 +22,23 @@ node{
   }
   stage('Nexus') {
         def pom = readMavenPom file: 'pom.xml'
+        filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
+        echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
+        artifactPath = filesByGlob[0].path;
+        artifactExists = fileExists artifactPath;
+        if(artifactExists) {
+                 echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
         nexusArtifactUploader artifacts: [
         [artifactId: 'vprofile', 
         classifier: '', 
         file: '/var/lib/jenkins/plugins/nexus-artifact-uploader.jpi', 
         type: 'jar']], 
         credentialsId: 'nexus-credentials', 
-        groupId: 'com.visualpathit', 
+        groupId: pom.groupId,
+        version: pom.version,
         nexusUrl: '13.234.225.84:8081', 
         nexusVersion: 'nexus2', 
         protocol: 'http', 
         repository: 'maven-releases', 
-        version: '5.0'
     }
 }
