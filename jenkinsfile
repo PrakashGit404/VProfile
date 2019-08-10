@@ -17,14 +17,14 @@ node{
         nexusArtifactUploader artifacts: [
         [artifactId: 'vprofile', 
         classifier: '', 
-        file: 'workspace/pipeline_git_mvn/target/vprofile-jar.war', 
-        type: 'jar']], 
+        file: 'workspace/pipeline_git_mvn/target/vprofile-v1.war', 
+        type: 'war']], 
         credentialsId: 'nexus-credentials', 
         groupId: 'com.visualpathit', 
-        nexusUrl: '13.235.100.21:8081', 
+        nexusUrl: '13.234.225.84:8081', 
         nexusVersion: 'nexus2', 
         protocol: 'http', 
         repository: 'maven-releases', 
-        version: 'v1'
+        version: '5.0'
     }
 }
