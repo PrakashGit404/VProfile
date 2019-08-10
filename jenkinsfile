@@ -35,4 +35,7 @@ node{
         repository: 'maven-releases', 
         version: '5.0'
     }
+    stage('publish'){
+      checkstyle canComputeNew: false, defaultEncoding: '', healthy: '', pattern: '', unHealthy: ''
+    }
 }
