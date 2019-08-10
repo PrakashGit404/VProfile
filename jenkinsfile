@@ -4,7 +4,7 @@ node{
   }
   stage('compile-pack'){
     def mvnHome = tool name: 'mvn', type: 'maven'
-    sh "${mvnHome}/bin/mvn clean compile package"
+    sh "${mvnHome}/bin/mvn clean compile package install deploy"
   }
   stage('sonar qube'){
     def mvnHome = tool name: 'mvn', type: 'maven'
