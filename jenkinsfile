@@ -25,7 +25,7 @@ node{
         nexusArtifactUploader artifacts: [
         [artifactId: 'vprofile', 
         classifier: '', 
-        file: 'workspace/pipeline_git_mvn/target/', 
+        file: 'workspace/pipeline_git_mvn/target/vprofile-3.0.war', 
         type: 'war']], 
         credentialsId: 'nexus-credentials', 
         groupId: 'com.visualpathit', 
