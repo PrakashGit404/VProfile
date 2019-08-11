@@ -31,7 +31,7 @@ node{
             nexusArtifactUploader(
                 nexusVersion: 'nexus2',
                 protocol: 'http',
-                nexusUrl: '13.234.225.84:8081',
+                nexusUrl: '13.127.122.8:8081',
                 groupId: pom.groupId,
                 version: pom.version,
                 repository: 'maven-releases', 
