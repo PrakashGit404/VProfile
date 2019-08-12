@@ -29,7 +29,7 @@ node{
                 protocol: 'http',
                 nexusUrl: '34.93.64.213:8081',
                 groupId: pom.groupId,
-                version: '$BUILD_ID',
+                version: 'pom.version',
                 repository: 'maven-releases', 
                 credentialsId: 'Nexus3.14',
                 artifacts: [
