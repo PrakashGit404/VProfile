@@ -1,6 +1,6 @@
 node{
   stage('clone'){
-    git 'https://github.com/PrakashGit404/VProfile'
+    git 'https://github.com/PrakashGit404/VProfile.git'
   }
   stage('compile-pack'){
     def mvnHome = tool name: 'mvn', type: 'maven'
@@ -8,49 +8,11 @@ node{
   }
   stage('sonar qube'){
     def mvnHome = tool name: 'mvn', type: 'maven'
-      withSonarQubeEnv('sonar server'){
+      withSonarQubeEnv('sonarqube'){
       sh "${mvnHome}/bin/mvn sonar:sonar"
     }
   }
   stage('checkstyle install'){
     def mvnHome = tool name: 'mvn', type: 'maven'
     sh "${mvnHome}/bin/mvn install checkstyle:checkstyle"
-  }
-  stage('Nexus') {
-        def pom = readMavenPom file: 'pom.xml'
-        filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
-        echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
-        artifactPath = filesByGlob[0].path;
-        artifactExists = fileExists artifactPath;
-        if(artifactExists) {
-            echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
-            nexusArtifactUploader(
-                nexusVersion: 'nexus2',
-                protocol: 'http',
-                nexusUrl: '13.127.122.8:8081',
-                groupId: pom.groupId,
-                version: pom.version,
-                repository: 'maven-releases', 
-                credentialsId: 'nexus-credentials',
-                artifacts: [
-                // Artifact generated such as .jar, .ear and .war files.
-                [artifactId: pom.artifactId,
-                classifier: '',
-                file: artifactPath,
-                type: pom.packaging],
-                // Lets upload the pom.xml file for additional information for Transitive dependencies
-                [artifactId: pom.artifactId,
-                classifier: '',
-                file: "pom.xml",
-                type: "pom"]
-                ]
-            );
-        } else {
-          error "*** File: ${artifactPath}, could not be found";
-        }
-    }
-	stage('nexus deploy'){
-    def mvnHome = tool name: 'mvn', type: 'maven'
-    sh "${mvnHome}/bin/mvn deploy"
-  }
 }
