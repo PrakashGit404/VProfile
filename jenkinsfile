@@ -12,10 +12,10 @@ node{
       sh "${mvnHome}/bin/mvn sonar:sonar"
     }
   }
-  stage('checkstyle install'){
-    def mvnHome = tool name: 'mvn', type: 'maven'
-    sh "${mvnHome}/bin/mvn install checkstyle:checkstyle"
- }
+  // stage('checkstyle install'){
+  //  def mvnHome = tool name: 'mvn', type: 'maven'
+  //  sh "${mvnHome}/bin/mvn install checkstyle:checkstyle"
+ // }
     stage('Nexus') {
         def pom = readMavenPom file: 'pom.xml'
         filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
