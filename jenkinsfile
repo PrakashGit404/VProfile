@@ -16,7 +16,32 @@ node{
   //  def mvnHome = tool name: 'mvn', type: 'maven'
   //  sh "${mvnHome}/bin/mvn install checkstyle:checkstyle"
  // }
-    stage('Publish') {
-     nexusArtifactUploader artifacts: [[artifactId: 'vprofile', classifier: '', file: 'target/vprofile-${BUILD_ID}.war', type: 'war']], credentialsId: 'Nexus3.14', groupId: 'com.visualpathit', nexusUrl: '10.160.0.7:8081', nexusVersion: 'nexus2', protocol: 'http', repository: 'maven-releases', version: '${BUILD_ID}'
+    stage('Nexus') {
+        def pom = readMavenPom file: 'pom.xml'
+        filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
+        echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
+        artifactPath = filesByGlob[0].path;
+        artifactExists = fileExists artifactPath;
+        if(artifactExists) {
+            echo "*** File: ${artifactPath}, group: ${pom.groupId}, version ${pom.version}, packaging: ${pom.packaging}";
+            nexusArtifactUploader(
+                nexusVersion: 'nexus2',
+                protocol: 'http',
+                nexusUrl: '10.160.0.7:8081',
+                groupId: pom.groupId,
+                version: pom.version,
+                repository: 'maven-releases', 
+                credentialsId: 'Nexus3.14',
+                artifacts: [
+                // Artifact generated such as .jar, .ear and .war files.
+                [artifactId: pom.artifactId,
+                classifier: '',
+                file: artifactPath,
+                type: pom.packaging]
+                ]
+            );
+        } else {
+          error "*** File: ${artifactPath}, could not be found";
+        }
     }
 }
