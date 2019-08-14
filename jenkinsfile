@@ -23,11 +23,11 @@ node{
         artifactPath = filesByGlob[0].path;
         artifactExists = fileExists artifactPath;
         if(artifactExists) {
-            echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
+            echo "*** File: ${artifactPath}, group: ${pom.groupId}, version ${pom.version}, packaging: ${pom.packaging}";
             nexusArtifactUploader(
                 nexusVersion: 'nexus2',
                 protocol: 'http',
-                nexusUrl: '34.93.64.213:8081',
+                nexusUrl: '10.160.0.7:8081',
                 groupId: pom.groupId,
                 version: pom.version,
                 repository: 'maven-releases', 
