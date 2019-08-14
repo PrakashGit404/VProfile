@@ -17,6 +17,6 @@ node{
   //  sh "${mvnHome}/bin/mvn install checkstyle:checkstyle"
  // }
     stage('Publish') {
-     nexusArtifactUploader artifacts: [[artifactId: 'vprofile', classifier: '', file: 'target/*.war', type: 'war']], credentialsId: 'Nexus3.14', groupId: 'com.visualpathit', nexusUrl: '10.160.0.7:8081', nexusVersion: 'nexus2', protocol: 'http', repository: 'maven-releases', version: '${BUILD_ID}'
+     nexusArtifactUploader artifacts: [[artifactId: 'vprofile', classifier: '', file: 'target/vprofile-${BUILD_ID}.war', type: 'war']], credentialsId: 'Nexus3.14', groupId: 'com.visualpathit', nexusUrl: '10.160.0.7:8081', nexusVersion: 'nexus2', protocol: 'http', repository: 'maven-releases', version: '${BUILD_ID}'
     }
 }
